@@ -17,13 +17,13 @@ public class ProductController {
 
     @GetMapping("")
     public @ResponseBody
-    Iterable<Product> addProducts() {
+    Iterable<Product> showProductList() {
         return productRepository.findAll();
     }
 
     @PostMapping("")
     public @ResponseBody
-    Product addProducts(@RequestParam String name) {
+    Product addProduct(@RequestParam String name) {
         Product product = new Product();
         product.setName(name);
         product = productRepository.save(product);
