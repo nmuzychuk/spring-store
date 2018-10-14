@@ -1,5 +1,6 @@
-package com.nmuzychuk.store.product;
+package com.nmuzychuk.store.admin.product;
 
+import com.nmuzychuk.store.product.ProductRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -26,15 +26,15 @@ public class ProductControllerTests {
 
     @Test
     public void testShowProductList() throws Exception {
-        mockMvc.perform(get("/products"))
-                .andExpect(status().isOk());
+        mockMvc.perform(get("/admin/products"))
+            .andExpect(status().isOk());
     }
 
     @Test
     public void testAddProduct() throws Exception {
-        mockMvc.perform(post("/products")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("name", "foo"))
-                .andExpect(status().isOk());
+        mockMvc.perform(post("/admin/products")
+            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+            .param("name", "foo"))
+            .andExpect(status().isFound());
     }
 }
