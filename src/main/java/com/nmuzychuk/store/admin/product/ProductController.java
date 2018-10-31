@@ -2,14 +2,15 @@ package com.nmuzychuk.store.admin.product;
 
 import com.nmuzychuk.store.product.Product;
 import com.nmuzychuk.store.product.ProductRepository;
+import com.nmuzychuk.store.system.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin/products")
@@ -43,5 +44,33 @@ public class ProductController {
             productRepository.save(product);
             return "redirect:/admin/products";
         }
+    }
+
+    @GetMapping("/{id}/edit")
+    String editProduct(@PathVariable("id") int id, ModelMap modelMap, HttpServletResponse response) {
+        Optional<Product> product = productRepository.findById(id);
+        if (product.isPresent()) {
+            modelMap.put("product", product.get());
+            return "admin/product/editProduct";
+        } else {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    @PutMapping("/{id}")
+    String updateProduct(@PathVariable("id") int id, @ModelAttribute("product") Product product, BindingResult result, ModelMap modelMap) {
+        if (result.hasErrors()) {
+            modelMap.put("product", product);
+            return "admin/product/editProduct";
+        } else {
+            productRepository.save(product);
+            return "redirect:/admin/products";
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    String deleteProduct(@PathVariable("id") int id) {
+        productRepository.deleteById(id);
+        return "redirect:/admin/products";
     }
 }

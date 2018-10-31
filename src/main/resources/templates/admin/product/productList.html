@@ -16,12 +16,18 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
-        </tr>
+            <th colspan="2"></th>
         </thead>
         <tbody>
         <tr th:each="product : ${products}">
             <td th:text="${product.id}"></td>
             <td th:text="${product.name}"></td>
+            <td><a class="btn btn-info" th:href="@{/admin/products/} + ${product.id} + @{/edit}">Edit</a></td>
+            <td>
+                <form th:object="${product}" th:action="@{/admin/products/} + ${product.id}" th:method="delete">
+                    <button class="btn btn-danger">Destroy</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
