@@ -10,9 +10,10 @@
         <h1 th:text="${status} + ' ' + ${error}"></h1>
         <!--/*@thymesVar id="message" type="java.lang.String"*/-->
         <p th:text="${message}"></p>
-        <a href="/" class="btn btn-large btn-info"><span class="glyphicon glyphicon-home"></span> Take Me Home</a>
+        <a href="/" class="btn btn-large btn-info"><span class="glyphicon glyphicon-home"></span> <span
+                th:text="#{error.home}"></span></a>
         <button class="btn btn-large btn-info" onclick="window.history.back()"><span
-                class="glyphicon glyphicon-step-backward"></span> Go Back
+                class="glyphicon glyphicon-step-backward"></span> <span th:text="#{error.back}"></span>
         </button>
     </div>
 </div>

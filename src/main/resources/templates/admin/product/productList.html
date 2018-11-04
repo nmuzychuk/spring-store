@@ -6,16 +6,16 @@
 
 <div class="container">
     <div class="page-header">
-        <h2>Products <span th:text="${products.size()}" class="badge"></span></h2>
+        <h2><span th:text="#{product.list.title}"></span> <span th:text="${products.size()}" class="badge"></span></h2>
     </div>
 
-    <a th:href="@{/admin/products/new}" class="btn btn-default">Add Product</a>
+    <a th:href="@{/admin/products/new}" class="btn btn-default" th:text="#{product.list.add}"></a>
 
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
+            <th th:text="#{product.label.id}"></th>
+            <th th:text="#{product.label.name}"></th>
             <th colspan="2"></th>
         </thead>
         <tbody>
@@ -25,7 +25,7 @@
             <td><a class="btn btn-info" th:href="@{/admin/products/} + ${product.id} + @{/edit}">Edit</a></td>
             <td>
                 <form th:object="${product}" th:action="@{/admin/products/} + ${product.id}" th:method="delete">
-                    <button class="btn btn-danger">Destroy</button>
+                    <button class="btn btn-danger" th:text="#{product.button.destroy}"></button>
                 </form>
             </td>
         </tr>
