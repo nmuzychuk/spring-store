@@ -43,7 +43,12 @@
                         <li><a th:href="@{/}" th:text="#{navbar.right.account}"></a></li>
                         <li><a th:href="@{/}" th:text="#{navbar.right.settings}"></a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/}" th:text="#{navbar.right.log_out}"></a></li>
+                        <li>
+                            <form th:action="@{/logout}" method="post">
+                                <button style="padding: 3px 20px;" class="btn btn-link"
+                                        th:text="#{navbar.right.log_out}"></button>
+                            </form>
+                        </li>
                     </ul>
                 </li>
             </ul>
