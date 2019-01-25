@@ -15,11 +15,15 @@
                 <div class="form-group>">
                     <label class="control-label" th:text="#{product.label.name}"></label>
                     <input th:field="*{name}" title="name" class="form-control"/>
+                    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                          class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" th:text="#{product.label.price}"></label>
                     <input th:field="*{price}" title="price" class="form-control"/>
+                    <span th:if="${#fields.hasErrors('price')}" th:errors="*{price}"
+                          class="text-danger"></span>
                 </div>
 
                 <button class="btn btn-default" th:text="#{product.button.create}"></button>

@@ -6,6 +6,9 @@ import org.springframework.format.annotation.NumberFormat;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Entity
@@ -14,8 +17,12 @@ public class Product {
     @GeneratedValue
     private Integer id;
 
+    @NotNull
+    @Size(min = 3, max = 30)
     private String name;
 
+    @NotNull
+    @Min(0)
     @NumberFormat(style = NumberFormat.Style.NUMBER, pattern = "#0.00")
     private BigDecimal price;
 

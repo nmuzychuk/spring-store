@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
@@ -37,9 +38,9 @@ public class ProductController {
     }
 
     @PostMapping
-    String createNewProduct(@ModelAttribute("product") Product product, BindingResult result, ModelMap modelMap,
+    String createNewProduct(@Valid @ModelAttribute("product") Product product, BindingResult bindingResult, ModelMap modelMap,
                             RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             modelMap.put("product", product);
             return "admin/product/newProduct";
         } else {
@@ -61,9 +62,9 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    String updateProduct(@PathVariable("id") int id, @ModelAttribute("product") Product product, BindingResult result,
-                         ModelMap modelMap, RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
+    String updateProduct(@PathVariable("id") int id, @Valid @ModelAttribute("product") Product product,
+                         BindingResult bindingResult, ModelMap modelMap, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
             modelMap.put("product", product);
             return "admin/product/editProduct";
         } else {
