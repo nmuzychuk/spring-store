@@ -35,7 +35,8 @@ public class ProductControllerTests {
     public void testAddProduct() throws Exception {
         mockMvc.perform(post("/admin/products")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .param("name", "foo"))
+            .param("name", "foo")
+            .param("price", "0"))
             .andExpect(status().isFound());
     }
 
@@ -43,7 +44,8 @@ public class ProductControllerTests {
     public void testUpdateProduct() throws Exception {
         mockMvc.perform(put("/admin/products/1")
             .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .param("name", "bar"))
+            .param("name", "bar")
+            .param("price", "1"))
             .andExpect(status().isFound());
     }
 
