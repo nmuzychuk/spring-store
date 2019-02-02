@@ -1,6 +1,7 @@
 package com.nmuzychuk.store.admin.product;
 
 import com.nmuzychuk.store.product.ProductRepository;
+import com.nmuzychuk.store.user.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,9 @@ public class ProductControllerTests {
 
     @MockBean
     private ProductRepository productRepository;
+
+    @MockBean
+    private UserRepository userRepository;
 
     @Test
     public void testShowProductList() throws Exception {
