@@ -1,37 +1,38 @@
 package com.nmuzychuk.store.user;
 
-import org.springframework.security.core.userdetails.User.UserBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import static org.springframework.security.core.userdetails.User.withUsername;
+import java.util.List;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private UserRepository userRepository;
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = findByEmail(email);
-        if (user != null) {
-            UserBuilder userBuilder = withUsername(email);
-            userBuilder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
-            userBuilder.roles("ADMIN");
-            return userBuilder.build();
-        } else {
-            throw new UsernameNotFoundException("User " + email + " not found.");
-        }
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    private User findByEmail(String email) {
-        User user = null;
-        if (email.equalsIgnoreCase("admin@admin")) {
-            user = new User();
-            user.setEmail("admin@admin");
-            user.setPassword("admin");
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + email + " not found.");
         }
-        return user;
+
+        List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList(user.getRoles());
+        return new org.springframework.security.core.userdetails.User(
+            user.getEmail(),
+            user.getPassword(),
+            true,
+            true,
+            true,
+            true,
+            auth);
     }
 }

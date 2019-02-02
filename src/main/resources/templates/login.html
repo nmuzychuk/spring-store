@@ -3,6 +3,7 @@
 <head th:replace="fragments/head:: head"></head>
 <body>
 <nav th:replace="fragments/navbar:: navbar"></nav>
+<div th:replace="fragments/message :: message"></div>
 
 <div class="container">
     <div class="row">
@@ -23,6 +24,7 @@
                     <input type="password" title="password" name="password" class="form-control"/>
                 </div>
                 <button class="btn btn-primary" th:text="#{login.sign_in}"></button>
+                <a th:href="@{/register}" class="btn btn-default pull-right" th:text="#{login.sign_up}"></a>
             </form>
         </div>
     </div>
