@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head"></head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div th:replace="fragments/message :: message"></div>
+
+<div class="container">
+    <div class="page-header">
+        <h2><span th:text="#{order.list.title}"></span> <span th:text="${orders.size()}" class="badge"></span></h2>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th th:text="#{order.label.id}"></th>
+            <th th:text="#{order.label.status}"></th>
+            <th th:text="#{order.label.created}"></th>
+            <th colspan="2"></th>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.status}"></td>
+            <td th:text="${order.created}"></td>
+            <td><a class="btn btn-info" th:href="@{/admin/orders/} + ${order.id} + @{/edit}"
+                   th:text="#{order.button.edit}"></a></td>
+            <td>
+                <form th:object="${order}" th:action="@{/admin/orders/} + ${order.id}" th:method="delete">
+                    <button class="btn btn-danger" th:text="#{order.button.destroy}"></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

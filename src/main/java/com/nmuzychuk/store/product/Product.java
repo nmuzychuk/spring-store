@@ -6,12 +6,14 @@ import org.springframework.format.annotation.NumberFormat;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue

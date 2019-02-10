@@ -36,7 +36,7 @@ public class UserController {
             return "register";
         } else {
             user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-            user.setRoles("ADMIN");
+            user.setRoles("ROLE_ADMIN"); // TODO: Set for the first user only or seed admin user
             userRepository.save(user);
             redirectAttributes.addFlashAttribute("message", "You have registered successfully");
             return "redirect:/login";
