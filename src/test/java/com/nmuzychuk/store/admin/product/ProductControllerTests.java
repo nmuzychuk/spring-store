@@ -1,5 +1,6 @@
 package com.nmuzychuk.store.admin.product;
 
+import com.nmuzychuk.store.order.OrderRepository;
 import com.nmuzychuk.store.product.ProductRepository;
 import com.nmuzychuk.store.user.UserRepository;
 import org.junit.Test;
@@ -28,6 +29,9 @@ public class ProductControllerTests {
 
     @MockBean
     private UserRepository userRepository;
+
+    @MockBean
+    OrderRepository orderRepository;
 
     @Test
     public void testShowProductList() throws Exception {
